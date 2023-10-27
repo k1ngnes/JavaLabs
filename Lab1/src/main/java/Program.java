@@ -2,7 +2,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.Math;
 import java.util.Scanner;
-import FileSave.SaveToFile;
 
 public class Program {
     public static void main(String[] args) {
@@ -21,7 +20,6 @@ public class Program {
         int intD = (int)Math.round(d);
         int resultNumber = Math.abs(intD);
 
-        //char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
         char[] alphabet = new char[26];
         int lettersStart = 65;
         for(int i = 0; i < 26; i++)
@@ -30,7 +28,6 @@ public class Program {
         }
 
         char resultLetter;
-        System.out.println(resultNumber);
         try {
             resultLetter = alphabet[resultNumber - 1];
         }
@@ -38,9 +35,7 @@ public class Program {
             resultLetter = 'e';
         }
 
-
         writeCharToFile(resultLetter);
-
         scanner.close();
     }
 
