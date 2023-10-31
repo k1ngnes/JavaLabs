@@ -27,13 +27,18 @@ public class Program {
             alphabet[i] = (char)lettersStart++;
         }
 
-        char resultLetter;
-        try {
-            resultLetter = alphabet[resultNumber - 1];
+        StringBuilder text = new StringBuilder();
+        char resultLetter = '-';
+        String n = String.valueOf(resultNumber);
+        for (Character c : n.toCharArray()){
+            resultNumber = Integer.parseInt(c.toString());
+            if (resultNumber>0) {
+                text.append(alphabet[resultNumber - 1]);
+            }
         }
-        catch (Exception e) {
-            resultLetter = 'e';
-        }
+
+
+        System.out.println(text);
 
         writeCharToFile(resultLetter);
         scanner.close();
