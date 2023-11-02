@@ -19,6 +19,7 @@ public class Program {
         d *=7;
         int intD = (int)Math.round(d);
         int resultNumber = Math.abs(intD);
+        System.out.println("Result number is " + resultNumber + ".");
 
         char[] alphabet = new char[26];
         int lettersStart = 65;
@@ -27,27 +28,25 @@ public class Program {
             alphabet[i] = (char)lettersStart++;
         }
 
-        StringBuilder text = new StringBuilder();
-        char resultLetter = '-';
-        String n = String.valueOf(resultNumber);
-        for (Character c : n.toCharArray()){
+        StringBuilder resultText = new StringBuilder();
+        String stringNumber = String.valueOf(resultNumber);
+        for (Character c : stringNumber.toCharArray()){
             resultNumber = Integer.parseInt(c.toString());
-            if (resultNumber>0) {
-                text.append(alphabet[resultNumber - 1]);
+            if (resultNumber > 0) {
+                resultText.append(alphabet[resultNumber - 1]);
             }
         }
 
+        System.out.println("Result text is '" + resultText + "'.");
 
-        System.out.println(text);
-
-        writeCharToFile(resultLetter);
+        writeCharToFile(resultText.toString());
         scanner.close();
     }
 
-    public static void writeCharToFile(char symbol) {
+    public static void writeCharToFile(String text) {
         try {
             FileWriter writer = new FileWriter("result.txt");
-            writer.write(symbol);
+            writer.write(text);
             writer.close();
         }
         catch (IOException e) {

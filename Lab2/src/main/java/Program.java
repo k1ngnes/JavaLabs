@@ -87,7 +87,7 @@ public class Program {
         int[] array = new int[size];
 
         for(int i = 0; i < size; i++) {
-            array[i] = rand.nextInt(upper + 1) + lower;
+            array[i] = rand.nextInt(upper) + lower;
         }
 
         return array;
@@ -97,7 +97,7 @@ public class Program {
         List<Integer> list = new ArrayList<>();
 
         for(int i = 0; i < size; i++) {
-            list.add(rand.nextInt(upper + 1) + lower);
+            list.add(rand.nextInt(upper) + lower);
         }
 
         return list;
