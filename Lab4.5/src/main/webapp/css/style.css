@@ -1,0 +1,11 @@
+.amazon-logo {
+  width: 103px;
+  height: 41px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

@@ -4,12 +4,8 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
-    <servlet>
-        <servlet-name>mainServlet</servlet-name>
-        <servlet-class>MainServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>mainServlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
+    <display-name>signup</display-name>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>
