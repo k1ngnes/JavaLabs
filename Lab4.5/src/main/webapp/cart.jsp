@@ -1,13 +1,33 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="com.kingnes.services.DbCon"%>
+<%@page import="com.kingnes.dao.ProductDao"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page import="com.kingnes.model.*"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
 <%
+DecimalFormat dcf = new DecimalFormat("#.##");
+request.setAttribute("dcf", dcf);
+
 User auth = (User) request.getSession().getAttribute("auth");
 if (auth != null) {
 	request.setAttribute("auth", auth);
 }
+
+ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
+List<Cart> cartProduct = null;
+
+if (cart_list != null) {
+	ProductDao pdao = new ProductDao(DbCon.getConnection());
+	cartProduct = pdao.getCartProducts(cart_list);
+	float total = pdao.getTotalCartPrice(cart_list);
+	request.setAttribute("cart_list", cart_list);
+	request.setAttribute("total", total);
+}
+
 %>
 
 <!DOCTYPE html>
@@ -34,8 +54,8 @@ if (auth != null) {
 
 	<div class="container">
 		<div class="d-flex py-3">
-			<h3>Total Price: $452</h3>
-			<a class="mx-3 btn btn-warning" href="#">Check Out</a>
+			<h3>Total Price: $ ${ (total>0)?dcf.format(total):0 }</h3>
+			<a class="mx-3 btn btn-warning" href="check-out">Check Out</a>
 		</div>
 		<table class="table table-loght">
 			<thead>
@@ -48,24 +68,32 @@ if (auth != null) {
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>Woman Shoes</td>
-					<td>Shoes</td>
-					<td>$45</td>
-					<td>
-						<form action="" ]method="post" class="form-inline">
-							<input type="hidden" name="id" value="1" class="form-input">
-							<div class="form-group d-flex justify-content-between">
-								<a class="btn btn-sm btn-incre" href=""><i
-									class="fas fa-plus-square"></i></a> <input type="text"
-									name="quantity" class="form-control" value="1" readonly>
-								<a class="btn btn-sm btn-decre" href=""><i
-									class="fas fa-minus-square"></i></a>
-							</div>
-						</form>
-					</td>
-					<td><a class="btn btn-sm btn-danger" href="">Remove</a></td>
-				</tr>
+			<%
+				if (cart_list != null) {
+					for (Cart c: cartProduct) { %>
+						<tr>
+						<td><%= c.getName() %></td>
+						<td><%= c.getCategory() %></td>
+						<td>$<%= dcf.format(c.getPrice()) %></td>
+						<td>
+							<form action="order-now" method="post" class="form-inline">
+								<input type="hidden" name="id" value="<%= c.getId() %>" class="form-input">
+								<div class="form-group d-flex justify-content-between">
+									<a class="btn btn-sm btn-incre" href="quantity-inc-dec?action=inc&id=<%= c.getId() %>"><i
+										class="fas fa-plus-square"></i></a> <input type="text"
+										name="quantity" class="form-control" value="<%= c.getQuantity() %>" readonly>
+									<a class="btn btn-sm btn-decre" href="quantity-inc-dec?action=dec&id=<%= c.getId() %>"><i
+										class="fas fa-minus-square"></i></a>
+								</div>
+								<button type="submit" class="btn btn-sm btn-warning">Buy</button>
+							</form>
+						</td>
+						<td><a class="btn btn-sm btn-danger" href="remove-from-cart?id=<%= c.getId() %>">Remove</a></td>
+					</tr>	
+					<%}
+				}
+			%>
+				
 			</tbody>
 		</table>
 	</div>
