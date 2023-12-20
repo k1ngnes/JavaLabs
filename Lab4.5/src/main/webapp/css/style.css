@@ -1,3 +1,12 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: 'Arial';
+}
+
 .amazon-logo {
   width: 103px;
   height: 41px;
@@ -8,4 +17,77 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
+}
+
+.card-container {
+	height: 500px;
+}
+
+.container-css {
+  padding: 10px;
+  border: 1px solid #969696;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+}
+
+.form-title {
+  margin-bottom: 15px;
+  font-size: 28px;
+  font-weight: normal;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.input-header {
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.input-register {
+  padding: 3px 7px;
+  border-radius: 3px;
+  width: 250px;
+  height: 22px;
+  border: 1px solid #969696;
+}
+
+.form-submit {
+  margin-bottom: 20px;
+  width: 265px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #ffd814;
+  border: 1px solid #ffd814;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+}
+
+.form-submit:hover {
+  background-color: #f7ca00;
+  border: 1px solid #f7ca00;
+}
+
+.terms-of-service {
+  margin-bottom: 40px;
+}
+
+.small-conditions-of-use-text {
+  font-size: 12px;
+}
+
+.link-text {
+  text-decoration: none;
+  color: #0066c0;
+}
+
+.link-text:hover {
+  text-decoration: underline;
+  color: #c45500;
+}
+
+.already-have-account {
+  font-size: 13px;
 }

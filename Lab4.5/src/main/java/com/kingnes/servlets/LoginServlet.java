@@ -1,6 +1,7 @@
-package com.uniquedeveloper.registration;
+package com.kingnes.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -11,6 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.kingnes.dao.UserDao;
+import com.kingnes.model.User;
+import com.kingnes.services.DbCon;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -23,11 +28,12 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		RequestDispatcher dispatcher = null;
 		
-		ResultSet result = LoginSelect.selectLoginAndPassword(uemail, upassword);
+		try (PrintWriter out = response.getWriter()){
+			UserDao udao = new UserDao(DbCon.getConnection());
+			User user = udao.userLogin(uemail, upassword);
 		
-		try {
-			if(result.next()) {
-				session.setAttribute("name", result.getString("uname"));
+			if(user != null) {
+				session.setAttribute("auth", user);
 				dispatcher = request.getRequestDispatcher("index.jsp");
 			} else {
 				request.setAttribute("status", "failed");
@@ -36,6 +42,8 @@ public class LoginServlet extends HttpServlet {
 			
 			dispatcher.forward(request, response);
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		

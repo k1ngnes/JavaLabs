@@ -1,7 +1,8 @@
-package com.uniquedeveloper.registration;
+package com.kingnes.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kingnes.dao.UserDao;
+import com.kingnes.services.DbCon;
 
 @WebServlet("/register")
 public class RegistrationServlet extends HttpServlet {
@@ -18,24 +22,31 @@ public class RegistrationServlet extends HttpServlet {
 		
 		String uname = request.getParameter("name");
 		String upassword = request.getParameter("pass");
+		String repassword = request.getParameter("re_pass");
 		String uemail = request.getParameter("email");
 		String umobile = request.getParameter("contact");
 		
-		PrintWriter out = response.getWriter();
-		out.print(uname);
-		out.print(uemail);
-		out.print(upassword);
-		out.print(umobile);
 				
 		RequestDispatcher dispatcher = request.getRequestDispatcher("registration.jsp");
 		
-		int rowCount = InsertToDB.insert(uname, upassword, uemail, umobile);
+		boolean doPasswordsMatch = repassword.equals(upassword);
+		int rowCount = 0;
+		
+		if (doPasswordsMatch) {
+			UserDao udao = null;
+			try {
+				udao = new UserDao(DbCon.getConnection());
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			}
+			rowCount = udao.userRegistration(uname, upassword, uemail, umobile);
+		}
+	
 		if (rowCount > 0) {
 			request.setAttribute("status", "success");
 		} else {
 			request.setAttribute("status", "failed");
 		}
-		
 		dispatcher.forward(request, response);
 	}
 
