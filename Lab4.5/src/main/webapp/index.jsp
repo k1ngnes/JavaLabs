@@ -44,7 +44,7 @@ if (cart_list != null) {
 		<%
 			if (!products.isEmpty()) {
 				for (Product p: products) { %>
-					<div class="col-md-3 my-3">
+					<div class="col-md-3">
 					<div class="card w-100" style="width: 18rem;">
 						<img src="product-image/<%= p.getImage() %>" class="card-img-top" alt="Card image">
 						<div class="card-body">
