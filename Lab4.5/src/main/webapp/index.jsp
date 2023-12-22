@@ -59,11 +59,11 @@ if (cart_list != null) {
 						</div>
 					</div>
 					</div>
-				</div>
 			<%	}
 			}
 		%>
 			
+		</div>
 		</div>
 	</div>
 

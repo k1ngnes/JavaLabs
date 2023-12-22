@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Program {
     public static void main(String[] args) {
-        String fileName = "D:\\Documents\\3-semester-term-1\\JavaLabs\\Lab3\\HarryPotterandtheMethodsofRationality.txt";
+        String fileName = "D:\\Users\\vorte\\OneDrive\\Документы\\3_course_1_term\\JavaLabs\\Lab3\\HarryPotterandtheMethodsofRationality.txt";
 
         long timerStartOneThread = System.currentTimeMillis();
         int oneThreadResult = oneThreadSearch(fileName);
