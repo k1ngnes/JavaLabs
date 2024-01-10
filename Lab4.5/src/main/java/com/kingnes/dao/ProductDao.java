@@ -120,4 +120,23 @@ public class ProductDao {
 		
 		return sum;
 	}
+	
+	public boolean insertProduct(String name, String category, float price, String image) {
+		boolean result = false;
+		
+		try {
+			query = "insert into products(name, category, price, image) values(?, ?, ?, ?);";
+			pst = this.connection.prepareStatement(query);
+			pst.setString(1, name);
+			pst.setString(2, category);
+			pst.setFloat(3, price);
+			pst.setString(4, image);
+			pst.executeUpdate();
+			result = true;
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }
